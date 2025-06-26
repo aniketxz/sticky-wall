@@ -1,0 +1,69 @@
+import { useState, useEffect } from "react";
+
+function NoteModal({onClose, onSave, editingNote }) {
+
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    if (editingNote) {
+      setTitle(editingNote.title);
+      setContent(editingNote.content.join("\n"));
+    } else {
+      setTitle("");
+      setContent("");
+    }
+  }, [editingNote]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSave({
+      id: editingNote?.id,
+      title: title.trim(),
+      content: content.split("\n").filter(line => line.trim() !== ""),
+    });
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 font-hanken flex items-center justify-center backdrop-blur-sm">
+      <div className="bg-white w-full max-w-xl overflow-hidden rounded-lg shadow-lg p-6">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <input
+            type="text"
+            name="title"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="text-xl/loose border-b border-gray-300 focus:outline-none"
+            required
+          />
+          <textarea
+            name="content"
+            rows={8}
+            placeholder="One point per line..."
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className="text-sm resize-none border p-2 focus:outline-none rounded-md"
+          />
+          <div className="flex justify-end gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 border rounded-md hover:bg-gray-100 cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-black text-white rounded hover:opacity-80 cursor-pointer"
+            >
+              {editingNote ? "Update" : "Save"}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default NoteModal;

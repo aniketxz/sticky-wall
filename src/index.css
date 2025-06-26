@@ -1,8 +1,18 @@
 @import "tailwindcss";
 
+@theme {
+  --font-hanken: "Hanken Grotesk", "sans-serif";
+}
+
 body {
   max-width: 65vw;
   margin: 0 auto;
-background: #020024;
-background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(30, 47, 51, 1) 48%, rgba(17, 17, 71, 1) 100%);
+  margin-top: 2rem;
+  background: #020024;
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(30, 47, 51, 1) 48%,
+    rgba(17, 17, 71, 1) 100%
+  );
 }
