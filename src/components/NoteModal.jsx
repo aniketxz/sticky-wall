@@ -31,7 +31,7 @@ function NoteModal({onClose, onSave, editingNote }) {
           <input
             type="text"
             name="title"
-            placeholder="Title"
+            placeholder="Grocery List"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="text-xl/loose border-b border-gray-300 focus:outline-none"
@@ -40,10 +40,11 @@ function NoteModal({onClose, onSave, editingNote }) {
           <textarea
             name="content"
             rows={8}
-            placeholder="One point per line..."
+            placeholder={"Aloo, \nPyaz"}
             value={content}
             onChange={(e) => setContent(e.target.value)}
             className="text-sm resize-none border p-2 focus:outline-none rounded-md"
+            required
           />
           <div className="flex justify-end gap-2">
             <button

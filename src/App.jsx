@@ -13,21 +13,17 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [editingNote, setEditingNote] = useState(null);
 
-  function handleDeleteNote(id) {
-    deleteNote(id);
-    toast.info("Note deleted 🚮");
-  }
-
+  
   function openNewNoteModal() {
     setEditingNote(null);
     setModalIsOpen(true);
   }
-
+  
   function handleEditNote(note) {
     setEditingNote(note);
     setModalIsOpen(true);
   }
-
+  
   function handleSaveNote(noteData) {
     if (noteData.id) {
       updateNote(noteData.id, {
@@ -39,6 +35,11 @@ function App() {
     }
     setModalIsOpen(false);
     toast.success("Note Saved 🫡");
+  }
+  
+  function handleDeleteNote(id) {
+    deleteNote(id);
+    toast.info("Note deleted 🚮");
   }
 
   return (
