@@ -25,7 +25,7 @@ export const sampleNotes = [
     content: [
       "“Beta, log kya kahenge?”",
       "Not touching feet fast enough",
-      "Breaking glass = 7 saal bad luck + 3 aunties shouting"
+      "Breaking glass = bad luck + aunties shouting"
     ],
     createdAt: new Date(),
   },

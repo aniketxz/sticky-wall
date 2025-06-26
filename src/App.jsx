@@ -14,6 +14,7 @@ function App() {
   const [editingNote, setEditingNote] = useState(null);
 
   
+  
   function openNewNoteModal() {
     setEditingNote(null);
     setModalIsOpen(true);

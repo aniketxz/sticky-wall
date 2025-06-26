@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function NoteModal({onClose, onSave, editingNote }) {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const titleRef = useRef(null);
 
   useEffect(() => {
     if (editingNote) {
@@ -14,6 +15,12 @@ function NoteModal({onClose, onSave, editingNote }) {
       setContent("");
     }
   }, [editingNote]);
+
+  useEffect(() => {
+    if (titleRef.current) {
+      titleRef.current.focus()
+    }
+  }, [])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -33,6 +40,7 @@ function NoteModal({onClose, onSave, editingNote }) {
             name="title"
             placeholder="Grocery List"
             value={title}
+            ref = {titleRef}
             onChange={(e) => setTitle(e.target.value)}
             className="text-xl/loose border-b border-gray-300 focus:outline-none"
             required
