@@ -16,10 +16,12 @@ export default function useNotes() {
   const [notes, setNotes] = useState([]);
 
   // Add note to Firestore
-  async function addNote({ title, content }) {
+  async function addNote({ title, content, x, y }) {
     await addDoc(collection(db, "notes"), {
       title,
       content,
+      x: x ?? null,
+      y: y ?? null,
       createdAt: serverTimestamp(),
     });
   }
