@@ -3,18 +3,3 @@
 @theme {
   --font-hanken: "Hanken Grotesk", "sans-serif";
 }
-
-body {
-  padding-left: 3%;
-  padding-right: 3%;
-  min-height: 100%;
-  margin: 0 auto;
-  margin-top: 2rem;
-  background: #020024;
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(30, 47, 51, 1) 48%,
-    rgba(17, 17, 71, 1) 100%
-  );
-}

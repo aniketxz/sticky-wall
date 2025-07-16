@@ -91,7 +91,7 @@ const NotesPanel = ({ notes, onDropNote, onEdit, onDelete, onMoveNote }) => {
         panelRef.current = node;
         drop(node);
       }}
-      className="relative w-full h-[70vh] bg-white/30 rounded-lg overflow-hidden border border-gray-200"
+      className="relative w-full h-full bg-white/30 rounded-lg overflow-hidden border border-gray-200"
       style={{ minHeight: 400 }}
     >
       {notes.map((note) => {

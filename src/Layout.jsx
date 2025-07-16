@@ -3,7 +3,7 @@ import { Outlet, Link } from "react-router-dom";
 
 const Layout = () => {
   return (
-    <main>
+    <main className="bg-[#0f172a] h-screen">
       <Outlet />
     </main>
   );
