@@ -1,39 +1,51 @@
 import { useEffect, useState } from "react";
-import { nanoid } from "nanoid";
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  onSnapshot,
+  doc,
+  serverTimestamp,
+  query,
+  orderBy,
+} from "firebase/firestore";
+import { db } from "../firebase";
 
-export default function useNotes(initialNotes = []) {
-  const [notes, setNotes] = useState(() => {
-    const saved = localStorage.getItem("notes");
-    return saved ? JSON.parse(saved) : initialNotes;
-  });
+export default function useNotes() {
+  const [notes, setNotes] = useState([]);
 
-  function addNote({ title, content }) {
-    setNotes(prev => [
-      ...prev,
-      {
-        id: nanoid(),
-        title,
-        content,
-        createdAt: new Date(),
-      },
-    ]);
+  // Add note to Firestore
+  async function addNote({ title, content }) {
+    await addDoc(collection(db, "notes"), {
+      title,
+      content,
+      createdAt: serverTimestamp(),
+    });
   }
 
-  function updateNote(id, updated) {
-    setNotes(prev =>
-      prev.map(note =>
-        note.id === id ? { ...note, ...updated } : note
-      )
-    );
+  // Update note in Firestore
+  async function updateNote(id, updated) {
+    const noteRef = doc(db, "notes", id);
+    await updateDoc(noteRef, updated);
   }
 
-  function deleteNote(id) {
-    setNotes(prev => prev.filter(note => note.id !== id));
+  // Delete note from Firestore
+  async function deleteNote(id) {
+    const noteRef = doc(db, "notes", id);
+    await deleteDoc(noteRef);
   }
 
+  // Real-time listener for notes
   useEffect(() => {
-    localStorage.setItem("notes", JSON.stringify(notes));
-  }, [notes]);
+    const q = query(collection(db, "notes"), orderBy("createdAt", "desc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setNotes(
+        snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      );
+    });
+    return unsubscribe;
+  }, []);
 
   return { notes, addNote, updateNote, deleteNote };
 }
